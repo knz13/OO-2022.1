@@ -11,6 +11,7 @@ public class CriaEstacionamento {
 		Estacionamento estacionamento = new Estacionamento(nomeEstacionamento);
 		sc.close();
 		System.out.println("ESTACIONAMENTO CRIADO COM SUCESSO!");
+		
 	}
 	
 }
