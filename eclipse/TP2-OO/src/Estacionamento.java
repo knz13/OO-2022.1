@@ -38,16 +38,16 @@ public class Estacionamento {
 		System.out.println("Valor cobrado pela hora cheia: R$" + this.valorHoraCheia);
 		
 		setDiariaDiurna();
-		System.out.println("Valor cobrado pela diária diurna: R$");
+		System.out.println("Valor cobrado pela diï¿½ria diurna: R$" + this.diariaDiurna);
 		
 		setDiariaNoturna();
-		System.out.println("Valor cobrado pela diária noturna: R$");
+		System.out.println("Valor cobrado pela diï¿½ria noturna: R$" + this.diariaNoturna);
 		
 		setValorMensalista();
-		System.out.println("Valor cobrado para mensalistas: R$");
+		System.out.println("Valor cobrado para mensalistas: R$" + this.valorMensalista);
 		
 		setRetornoContratante();
-		System.out.println("Porcentagem do valor retornado ao contratante: ");
+		System.out.println("Porcentagem do valor retornado ao contratante: " + this.retornoContratante);
 		
 	}
 
@@ -88,7 +88,7 @@ public class Estacionamento {
 	}
 
 	public void setDiariaDiurna() {
-		System.out.print("Digite o valor cobrado pela diária diurna: ");
+		System.out.print("Digite o valor cobrado pela diï¿½ria diurna: ");
 		double diariaDiurna = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
 		this.diariaDiurna = diariaDiurna;
 	}
@@ -98,7 +98,7 @@ public class Estacionamento {
 	}
 
 	public void setDiariaNoturna() {
-		System.out.print("Digite o valor cobrado pela diária noturna: ");
+		System.out.print("Digite o valor cobrado pela diï¿½ria noturna: ");
 		double diariaNoturna = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
 		this.diariaNoturna = diariaNoturna;
 	}

@@ -1,23 +1,50 @@
 
 public class Registro {
 
-	private Acesso acesso;
-	private Estacionamento estacionamento;
+	private static BancoDeDados registros;
 
-	public Acesso getAcesso() {
-		return acesso;
+	public static BancoDeDados getBancoDeDados() {
+		return Registro.registros;
 	}
 
-	public void setAcesso(Acesso acesso) {
-		this.acesso = acesso;
+	public static void criarNovoAcesso() {
+
 	}
 
-	public Estacionamento getEstacionamento() {
-		return estacionamento;
+	public static void criarNovoEstacionamento() {
+
 	}
 
-	public void setEstacionamento(Estacionamento estacionamento) {
-		this.estacionamento = estacionamento;
+	public static void criarNovoEvento() {
+
 	}
 
+	public static Boolean removerAcesso(String placa){
+
+		Acesso acesso = pesquisarAcesso(placa);
+		if(acesso == null){
+			return false;
+		}
+		else {
+			registros.getAcessos().remove(acesso);
+			return true;
+		}
+	}
+
+	public static Evento pesquisarEvento(String nomeDoEvento) {
+		
+		
+
+		return null;
+	}
+
+	public static Estacionamento pesquisarEstacionamento(String nomeDoEstacionamento) {
+		//todo
+		return null;
+	}
+
+	public static Acesso pesquisarAcesso(String placa) {
+		//todo
+		return null;
+	}
 }

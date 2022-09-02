@@ -1,40 +1,32 @@
+import java.util.ArrayList;
 
 public class BancoDeDados {
 
-	private static Estacionamento estacionamentos[];
-	private static Evento eventos[];
-	private static Registro registros[];
-	private static Acesso acessos[];
+	private ArrayList<Estacionamento> estacionamentos;
+	private ArrayList<Evento> eventos;
+	private ArrayList<Acesso> acessos;
 
-	public Estacionamento[] getEstacionamentos() {
+	public ArrayList<Estacionamento> getEstacionamentos() {
 		return estacionamentos;
 	}
 
-	public void setEstacionamentos(Estacionamento[] estacionamentos) {
+	public void setEstacionamentos(ArrayList<Estacionamento> estacionamentos) {
 		this.estacionamentos = estacionamentos;
 	}
 
-	public Evento[] getEventos() {
+	public ArrayList<Evento> getEventos() {
 		return eventos;
 	}
 
-	public void setEventos(Evento[] eventos) {
+	public void setEventos(ArrayList<Evento> eventos) {
 		this.eventos = eventos;
 	}
 
-	public Registro[] getRegistros() {
-		return registros;
-	}
-
-	public void setRegistros(Registro[] registros) {
-		this.registros = registros;
-	}
-
-	public Acesso[] getAcessos() {
+	public ArrayList<Acesso> getAcessos() {
 		return acessos;
 	}
 
-	public void setAcessos(Acesso[] acessos) {
+	public void setAcessos(ArrayList<Acesso> acessos) {
 		this.acessos = acessos;
 	}
 
