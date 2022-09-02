@@ -1,7 +1,7 @@
 
 public class Registro {
 
-	private static BancoDeDados registros;
+	private static BancoDeDados registros = new BancoDeDados();
 
 	public static BancoDeDados getBancoDeDados() {
 		return Registro.registros;
@@ -52,7 +52,7 @@ public class Registro {
 	public static Evento pesquisarEvento(String nomeDoEvento) {
 		Evento evento = null;
 		for(Evento ev : registros.getEventos()){
-			if(ev.getNomeEvento() == nomeDoEvento){
+			if(ev.getNomeDoEvento() == nomeDoEvento){
 				evento = ev;
 			}
 		}

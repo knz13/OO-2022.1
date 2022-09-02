@@ -1,32 +1,39 @@
+import java.time.LocalDateTime;
 
 public class Evento {
 
-	private String nomeEvento;
-	private Datas dataEvento;
-	private Horas horaEvento;
+	
+	private LocalDateTime horarioDeInicio;
+	private LocalDateTime horarioDeFim;
+	private String nomeDoEvento;
+	private double valorDoEvento;
+	
 
-	public String getNomeEvento() {
-		return nomeEvento;
+	public LocalDateTime getHorarioDeInicio() {
+		return horarioDeInicio;
+	}
+	public void setHorarioDeInicio(LocalDateTime horarioDeInicio) {
+		this.horarioDeInicio = horarioDeInicio;
+	}
+	public LocalDateTime getHorarioDeFim() {
+		return horarioDeFim;
+	}
+	public void setHorarioDeFim(LocalDateTime horarioDeFim) {
+		this.horarioDeFim = horarioDeFim;
+	}
+	public String getNomeDoEvento() {
+		return nomeDoEvento;
+	}
+	public void setNomeDoEvento(String nomeDoEvento) {
+		this.nomeDoEvento = nomeDoEvento;
+	}
+	public double getValorDoEvento() {
+		return valorDoEvento;
+	}
+	public void setValorDoEvento(double valorDoEvento) {
+		this.valorDoEvento = valorDoEvento;
 	}
 
-	public void setNomeEvento(String nomeEvento) {
-		this.nomeEvento = nomeEvento;
-	}
 
-	public Datas getDataEvento() {
-		return dataEvento;
-	}
-
-	public void setDataEvento(Datas dataEvento) {
-		this.dataEvento = dataEvento;
-	}
-
-	public Horas getHoraEvento() {
-		return horaEvento;
-	}
-
-	public void setHoraEvento(Horas horaEvento) {
-		this.horaEvento = horaEvento;
-	}
 
 }

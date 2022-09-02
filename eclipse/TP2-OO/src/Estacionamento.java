@@ -1,8 +1,7 @@
-import java.util.Scanner;
+import java.time.LocalTime;
 
 public class Estacionamento {
 
-	public static Scanner sc = new Scanner(System.in);
 	// atributos de estacionamento
 	private String nomeEstacionamento;
 	private double fracaoQuinzeMinutos;
@@ -13,42 +12,14 @@ public class Estacionamento {
 	private double valorMensalista;
 	private double retornoContratante; // valor percentual sobre o lucro total que retornara ao contratante do servico
 	private int capacidadeEstacionamento;
-	private Evento evento; // essa classe precisa ter acesso a classe de eventos
-	private Horas horarioFuncionamento;
-	private Horas funcionamentoNoturno;
-	
+	private LocalTime horarioAbertura;
+	private LocalTime horarioFechamento;
+
+
 	// criando o construtor padrao para um estacionamento!
 	
-	public Estacionamento(String nomeEstacionamento) { 
-		setNomeEstacionamento(nomeEstacionamento);
-		System.out.print("Estacionamento criado: " + this.nomeEstacionamento);
-		
-		// preciso agora chamar metodos para definir todos os outros atributos obrigatorios!
-		
-		// metodo para definir a capacidade
-		setCapacidadeEstacionamento();
-		System.out.println("Capacidade do estacionamento: " + this.capacidadeEstacionamento);
-		
-		// metodos para definir valores cobrados
-		setFracaoQuinzeMinutos();
-		System.out.println("Valor cobrado por estadia de 15 minutos: R$" + this.fracaoQuinzeMinutos);
-		
-		setDescontoHoraCheia();
-		System.out.println("Desconto aplicado a cada hora cheia: " + this.descontoHoraCheia);
-		System.out.println("Valor cobrado pela hora cheia: R$" + this.valorHoraCheia);
-		
-		setDiariaDiurna();
-		System.out.println("Valor cobrado pela di�ria diurna: R$" + this.diariaDiurna);
-		
-		setDiariaNoturna();
-		System.out.println("Valor cobrado pela di�ria noturna: R$" + this.diariaNoturna);
-		
-		setValorMensalista();
-		System.out.println("Valor cobrado para mensalistas: R$" + this.valorMensalista);
-		
-		setRetornoContratante();
-		System.out.println("Porcentagem do valor retornado ao contratante: " + this.retornoContratante);
-		
+	public Estacionamento() { 
+
 	}
 
 	public String getNomeEstacionamento() {
@@ -63,10 +34,9 @@ public class Estacionamento {
 		return fracaoQuinzeMinutos;
 	}
 
-	public void setFracaoQuinzeMinutos() {
-		System.out.print("Digite o valor cobrado pela estadia de 15 minutos: ");
-		double fracaoQuinzeMinutos = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
-		this.fracaoQuinzeMinutos = fracaoQuinzeMinutos;
+	public void setFracaoQuinzeMinutos(double fracao) {
+		
+		this.fracaoQuinzeMinutos = fracao;
 	}
 
 	public double getDescontoHoraCheia() {
@@ -75,88 +45,50 @@ public class Estacionamento {
 
 	// implementacao de um algoritmo para ja calcular o valor da hora cheia em vez de me retornar toda hora
 	// um desconto aleatorio
-	public void setDescontoHoraCheia() {
-		System.out.print("Digite o desconto aplicado a cada hora cheia: ");
-		double descontoHoraCheia = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
-		this.descontoHoraCheia = descontoHoraCheia;
-		double valorHoraCheia = this.fracaoQuinzeMinutos * 4 * this.descontoHoraCheia;
-		setValorHoraCheia(valorHoraCheia); 
+	public void setDescontoHoraCheia(double desconto) {
+		this.descontoHoraCheia = desconto;
 	}
 
 	public double getDiariaDiurna() {
 		return diariaDiurna;
 	}
 
-	public void setDiariaDiurna() {
-		System.out.print("Digite o valor cobrado pela di�ria diurna: ");
-		double diariaDiurna = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
-		this.diariaDiurna = diariaDiurna;
+	public void setDiariaDiurna(double diaria) {
+		this.diariaDiurna = diaria;
 	}
 
 	public double getDiariaNoturna() {
 		return diariaNoturna;
 	}
 
-	public void setDiariaNoturna() {
-		System.out.print("Digite o valor cobrado pela di�ria noturna: ");
-		double diariaNoturna = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
-		this.diariaNoturna = diariaNoturna;
+	public void setDiariaNoturna(double diaria) {
+		this.diariaNoturna = diaria;
 	}
 
 	public double getValorMensalista() {
 		return valorMensalista;
 	}
 
-	public void setValorMensalista() {
-		System.out.print("Digite o valor cobrado para mensalistas: ");
-		double valorMensalista = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
-		this.valorMensalista = valorMensalista;
+	public void setValorMensalista(double valor) {
+		this.valorMensalista = valor;
 	}
 
 	public double getRetornoContratante() {
 		return retornoContratante;
 	}
 
-	public void setRetornoContratante() {
-		System.out.print("Digite, em decimal, o valor retornado ao contratante: ");
-		double retornoContratante = sc.nextDouble(); // atentar-se ao ponto e a virgula (decimais)
-		this.retornoContratante = retornoContratante;
+	public void setRetornoContratante(double retorno) {
+		this.retornoContratante = retorno;
 	}
 
 	public int getCapacidadeEstacionamento() {
 		return capacidadeEstacionamento;
 	}
 
-	public void setCapacidadeEstacionamento() {
-		System.out.print("Digite a capacidade total do seu estacionamento: ");
-		int capacidadeEstacionamento = sc.nextInt();
-		this.capacidadeEstacionamento = capacidadeEstacionamento;
+	public void setCapacidadeEstacionamento(int capacidade) {
+		this.capacidadeEstacionamento = capacidade;
 	}
-
-	public Evento getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
-
-	public Horas getHorarioFuncionamento() {
-		return horarioFuncionamento;
-	}
-
-	public void setHorarioFuncionamento(Horas horarioFuncionamento) {
-		this.horarioFuncionamento = horarioFuncionamento;
-	}
-
-	public Horas getFuncionamentoNoturno() {
-		return funcionamentoNoturno;
-	}
-
-	public void setFuncionamentoNoturno(Horas funcionamentoNoturno) {
-		this.funcionamentoNoturno = funcionamentoNoturno;
-	}
-
+	
 	public double getValorHoraCheia() {
 		return valorHoraCheia;
 	}
@@ -164,5 +96,21 @@ public class Estacionamento {
 	public void setValorHoraCheia(double valorHoraCheia) {
 		this.valorHoraCheia = valorHoraCheia;
 	}
+
+    public LocalTime getHorarioAbertura() {
+        return horarioAbertura;
+    }
+
+    public void setHorarioAbertura(LocalTime horarioAbertura) {
+        this.horarioAbertura = horarioAbertura;
+    }
+
+    public LocalTime getHorarioFechamento() {
+        return horarioFechamento;
+    }
+
+    public void setHorarioFechamento(LocalTime horarioFechamento) {
+        this.horarioFechamento = horarioFechamento;
+    }
 
 }

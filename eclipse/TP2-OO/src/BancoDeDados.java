@@ -6,6 +6,12 @@ public class BancoDeDados {
 	private ArrayList<Evento> eventos;
 	private ArrayList<Acesso> acessos;
 
+	public BancoDeDados() {
+		this.estacionamentos = new ArrayList<>();
+		this.eventos = new ArrayList<>();
+		this.acessos = new ArrayList<>();
+	}
+
 	public ArrayList<Estacionamento> getEstacionamentos() {
 		return estacionamentos;
 	}
