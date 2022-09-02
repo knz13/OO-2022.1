@@ -7,44 +7,87 @@ public class Registro {
 		return Registro.registros;
 	}
 
-	public static void criarNovoAcesso() {
-
+	public static void AdicionarAcesso(Acesso acesso) {
+		registros.getAcessos().add(acesso);
 	}
 
-	public static void criarNovoEstacionamento() {
-
+	public static void AdicionarEstacionamento(Estacionamento estacionamento) {
+		registros.getEstacionamentos().add(estacionamento);
 	}
 
-	public static void criarNovoEvento() {
-
+	public static void AdicionarEvento(Evento evento) {
+		registros.getEventos().add(evento);
 	}
 
-	public static Boolean removerAcesso(String placa){
-
-		Acesso acesso = pesquisarAcesso(placa);
-		if(acesso == null){
-			return false;
-		}
-		else {
+	public static void removerAcesso(String placa){
+		try {
+			Acesso acesso = pesquisarAcesso(placa);
 			registros.getAcessos().remove(acesso);
-			return true;
+		}
+		catch(ObjetoNaoEncontradoException err) {
+			throw err;
+		}
+	}
+
+	public static void removerEvento(String nomeDoEvento){
+		try {
+			Evento evento = pesquisarEvento(nomeDoEvento);
+			registros.getEventos().remove(evento);
+		}
+		catch(ObjetoNaoEncontradoException err) {
+			throw err;
+		}
+	}
+
+	public static void removerEstacionamento(String nomeDoEstacionamento){
+		try {
+			Estacionamento estacionamento = pesquisarEstacionamento(nomeDoEstacionamento);
+			registros.getEstacionamentos().remove(estacionamento);
+		}
+		catch(ObjetoNaoEncontradoException err) {
+			throw err;
 		}
 	}
 
 	public static Evento pesquisarEvento(String nomeDoEvento) {
-		
-		
+		Evento evento = null;
+		for(Evento ev : registros.getEventos()){
+			if(ev.getNomeEvento() == nomeDoEvento){
+				evento = ev;
+			}
+		}
+		if(evento == null){
+			throw new ObjetoNaoEncontradoException("Evento com nome " + nomeDoEvento + " não encontrado!");
+		}
 
-		return null;
+		return evento;
 	}
 
 	public static Estacionamento pesquisarEstacionamento(String nomeDoEstacionamento) {
-		//todo
-		return null;
+		Estacionamento estacionamento = null;
+		for(Estacionamento est : registros.getEstacionamentos()){
+			if(est.getNomeEstacionamento() == nomeDoEstacionamento){
+				estacionamento = est;
+			}
+		}
+		if(estacionamento == null){
+			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + nomeDoEstacionamento + " não encontrado!");
+		}
+
+		return estacionamento;
 	}
 
 	public static Acesso pesquisarAcesso(String placa) {
-		//todo
-		return null;
+		Acesso acesso = null;
+		for(Acesso ac : registros.getAcessos()){
+			if(ac.getPlaca() == placa){
+				acesso = ac;
+			}
+		}
+		if(acesso == null){
+			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + placa + " não encontrado!");
+		}
+
+		return acesso;
 	}
 }
