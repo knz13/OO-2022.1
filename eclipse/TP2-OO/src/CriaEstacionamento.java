@@ -73,7 +73,6 @@ public class CriaEstacionamento {
 
   		//implementar forma de usuário confirmar se quer realmente criar o estacionamento
 		Registro.AdicionarEstacionamento(estacionamento);
-		sc.close();
 		System.out.println("ESTACIONAMENTO CRIADO COM SUCESSO!");
 		
 	}

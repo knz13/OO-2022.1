@@ -7,6 +7,18 @@ public class Registro {
 		return Registro.registros;
 	}
 
+	public static String listarEstacionamentos() {
+		String valor = "Lista de Estacionamentos:\n";
+		int index = 0;
+		for(Estacionamento estacionamento : registros.getEstacionamentos()){
+			valor += "- " + estacionamento.getNomeEstacionamento() + " - " + index;
+			index++;
+		}
+
+		return valor;
+
+	}
+
 	public static void AdicionarAcesso(Acesso acesso) {
 		registros.getAcessos().add(acesso);
 	}

@@ -2,10 +2,15 @@
 public class Acesso {
 
 	private String placa;
+	private Estacionamento estacionamento;
 	private Datas dataEntrada;
 	private Datas dataSaida;
 	private Horas horaEntrada;
 	private Horas horaSaida;
+
+
+
+	//public double CalcularValor() lidar depois
 
 	public String getPlaca() {
 		return placa;
@@ -46,5 +51,13 @@ public class Acesso {
 	public void setHoraSaida(Horas horaSaida) {
 		this.horaSaida = horaSaida;
 	}
+
+    public Estacionamento getEstacionamento() {
+        return estacionamento;
+    }
+
+    public void setEstacionamento(Estacionamento estacionamento) {
+        this.estacionamento = estacionamento;
+    }
 
 }

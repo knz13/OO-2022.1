@@ -14,11 +14,8 @@ public class Estacionamento {
 	private int capacidadeEstacionamento;
 	private LocalTime horarioAbertura;
 	private LocalTime horarioFechamento;
-
-
-	// criando o construtor padrao para um estacionamento!
 	
-	public Estacionamento() { 
+	public Estacionamento() {
 
 	}
 
@@ -88,7 +85,7 @@ public class Estacionamento {
 	public void setCapacidadeEstacionamento(int capacidade) {
 		this.capacidadeEstacionamento = capacidade;
 	}
-	
+
 	public double getValorHoraCheia() {
 		return valorHoraCheia;
 	}

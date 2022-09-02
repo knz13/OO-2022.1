@@ -7,6 +7,7 @@ public class Evento {
 	private LocalDateTime horarioDeFim;
 	private String nomeDoEvento;
 	private double valorDoEvento;
+	private Estacionamento estacionamento;
 	
 
 	public LocalDateTime getHorarioDeInicio() {
@@ -32,6 +33,12 @@ public class Evento {
 	}
 	public void setValorDoEvento(double valorDoEvento) {
 		this.valorDoEvento = valorDoEvento;
+	}
+	public Estacionamento getEstacionamento() {
+		return estacionamento;
+	}
+	public void setEstacionamento(Estacionamento estacionamento) {
+		this.estacionamento = estacionamento;
 	}
 
 
