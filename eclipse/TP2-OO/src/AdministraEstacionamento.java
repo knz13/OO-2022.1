@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-public class CriaEstacionamento {
+public class AdministraEstacionamento implements Administrador {
 
 
-	public static void MostrarNoMenu() {
+	public void MostrarMenuCriacao() {
 
 		System.out.println("------ CRIACAO DE NOVO ESTACIONAMENTO ------");
 		Scanner sc = new Scanner(System.in);
@@ -70,6 +70,46 @@ public class CriaEstacionamento {
 		Registro.AdicionarEstacionamento(estacionamento);
 		System.out.println("ESTACIONAMENTO CRIADO COM SUCESSO!");
 		
+	}
+
+	
+	
+
+	@Override
+	public int GetNumeroDeObjetos() {
+		return Registro.getBancoDeDados().getEstacionamentos().size();
+	}
+
+
+	public void MostrarMenuDeObjeto(Estacionamento estacionamento){
+		
+
+
+	}	
+
+	@Override
+	public void MostrarMenuPesquisa() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println(Registro.listarEstacionamentosSemIndex());
+
+		
+		Estacionamento estacionamento = null;
+		while(true){
+			System.out.print("Digite o nome do estacionamento que voce deseja visualizar: ");
+			String nome = LidaComInputs.tentarPegarInputAteDarCerto(sc);
+
+			try {
+				estacionamento = Registro.pesquisarEstacionamento(nome);
+				
+				break;
+			}
+			catch(ObjetoNaoEncontradoException err){
+				System.out.println(err.getMessage() + "\nPor favor, tente novamente.");
+			}
+			
+		}
+		MostrarMenuDeObjeto(estacionamento);
+
 	}
 	
 }

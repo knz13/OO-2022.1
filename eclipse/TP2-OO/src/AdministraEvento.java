@@ -1,9 +1,24 @@
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class CriaEvento {
+public class AdministraEvento implements Administrador{
+
+    @Override
+    public void MostrarMenuPesquisa() {
+        // TODO Auto-generated method stub
+        
+    }
+
     
-    public static void MostrarNoMenu() {
+    @Override
+    public int GetNumeroDeObjetos() {
+        // TODO Auto-generated method stub
+        return Registro.getBancoDeDados().getEventos().size();
+    }
+
+    
+    @Override
+    public void MostrarMenuCriacao() {
 
         if(Registro.getBancoDeDados().getEstacionamentos().size() == 0){
             System.out.println("Nao ha nenhum estacionamento no banco de dados, portanto, nao e possivel criar um evento...");

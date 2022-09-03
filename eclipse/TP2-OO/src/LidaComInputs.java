@@ -112,6 +112,7 @@ public class LidaComInputs {
                     System.out.println("O valor inserido nao pode ser menor do que 0! Tente novamente.");
                     object = null;
                     valor = null;
+                    continue;
                 }
                 
                 if(!func.operation(object.intValue())){
@@ -121,7 +122,7 @@ public class LidaComInputs {
                 }
 			}
 			catch(DescricaoEmBrancoException err){
-				System.out.println(err.getMessage());
+                System.out.println(err.getMessage());
                 valor = null;
                 object = null;
 			}
@@ -131,34 +132,35 @@ public class LidaComInputs {
                 object = null;
             }
 		}
-
+        
         return object.intValue();
     }
 
     public static int tentarPegarInputInteiroAteDarCerto(Scanner scanner) {
         return tentarPegarInputInteiroAteDarCerto(scanner,(n) -> {return true;});
     }
-
+    
     public static double tentarPegarInputDoubleAteDarCerto(Scanner scanner,FuncaoDeTesteDoInputDouble func){
         String valor = null;
         Double object = null;
-
+        
 		while(valor == null){
-			try {
-				valor = lidarComInput(scanner);
-
+            try {
+                valor = lidarComInput(scanner);
+                
                 if(valor.contains((","))){
                     System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
                     valor = null;
                     continue;
                 }
-
+                
                 object = Double.parseDouble(valor);
                 
                 if(object.intValue() < 0){
                     System.out.println("O valor inserido nao pode ser menor do que 0! Tente novamente.");
                     object = null;
                     valor = null;
+                    continue;
                 }
                 
                 if(!func.operation(object.doubleValue())){

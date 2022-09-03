@@ -1,8 +1,19 @@
 import java.util.Scanner;
 
-public class CriaAcesso {
+public class AdministraAcesso implements Administrador{
 
-    public static void MostrarNoMenu() {
+    @Override
+    public void MostrarMenuPesquisa() {
+        
+    }
+
+    @Override
+    public int GetNumeroDeObjetos() {
+        return Registro.getBancoDeDados().getAcessos().size();
+    }
+
+    @Override
+    public void MostrarMenuCriacao() {
 
         if(Registro.getBancoDeDados().getEstacionamentos().size() == 0){
             System.out.println("Nao ha nenhum estacionamento no banco de dados, portanto, nao e possivel criar um acesso...");

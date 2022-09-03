@@ -5,10 +5,12 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 public class Registro {
 
 	private static BancoDeDados registros = new BancoDeDados();
+	
 
 	public static BancoDeDados getBancoDeDados() {
 		return Registro.registros;
@@ -137,10 +139,16 @@ public class Registro {
 		String valor = "Lista de Estacionamentos:\n";
 		int index = 0;
 		for(Estacionamento estacionamento : registros.getEstacionamentos()){
-			valor += "- " + estacionamento.getNomeEstacionamento() + " - " + index;
+			valor += index + " - " + estacionamento.getNomeEstacionamento() + "\n";
 			index++;
 		}
-
+		return valor;
+	}
+	public static String listarEstacionamentosSemIndex() {
+		String valor = "Lista de Estacionamentos:\n";
+		for(Estacionamento estacionamento : registros.getEstacionamentos()){
+			valor += " - " + estacionamento.getNomeEstacionamento() + "\n";
+		}	
 		return valor;
 
 	}
