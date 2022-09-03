@@ -45,6 +45,9 @@ public class AdministraAcesso implements Administrador{
             case 1:
                 break;
             case 2:
+                Registro.removerAcesso(acesso.getPlaca());
+                System.out.println("Acesso removido com sucesso!");
+                Menu.MostrarInterface(this, "Acessos");
                 break;
             case 3:
                 Menu.MostrarMenuPrincipal();

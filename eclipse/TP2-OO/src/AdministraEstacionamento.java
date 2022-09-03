@@ -105,6 +105,9 @@ public class AdministraEstacionamento implements Administrador {
             case 1:
                 break;
             case 2:
+				Registro.removerEstacionamento(estacionamento.getNomeEstacionamento());
+				System.out.println("Estacionamento removido com sucesso!");
+				Menu.MostrarInterface(this, "Estacionamentos");
                 break;
             case 3:
                 Menu.MostrarMenuPrincipal();
