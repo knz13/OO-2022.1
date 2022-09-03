@@ -54,6 +54,9 @@ public class AdministraEvento implements Administrador{
                 MostrarMenuAtualizacao(evento);
                 break;
             case 2:
+                Registro.removerEvento(evento.getNomeDoEvento());
+                System.out.println("Evento removido com sucesso!");
+                Menu.MostrarInterface(this, "Eventos");
                 break;
             case 3:
                 Menu.MostrarMenuPrincipal();
@@ -66,13 +69,13 @@ public class AdministraEvento implements Administrador{
 
         System.out.println("O que voce gostaria de atualizar no evento '" + evento.getNomeDoEvento() + "'?\n");
 
-        System.out.println("1 - Nome");
-        System.out.println("2 - Valor");
-        System.out.println("3 - Estacionamento associado");
-        System.out.println("4 - Data de inicio");
-        System.out.println("5 - Data de termino");
-        System.out.println("6 - Horario de abertura diario");
-        System.out.println("7 - Horario de fechamento diario");
+        System.out.println("1 - Nome | Atual => " + evento.getNomeDoEvento());
+        System.out.println("2 - Valor | Atual => " + evento.getValorDoEvento());
+        System.out.println("3 - Estacionamento associado | Atual => " + evento.getEstacionamento().getNomeEstacionamento());
+        System.out.println("4 - Data de inicio | Atual => " + evento.getDataEHorarioDeInicio().format(LidaComInputs.getFormatterDateTime()));
+        System.out.println("5 - Data de termino | Atual => " + evento.getDataEHorarioDeFim().format(LidaComInputs.getFormatterDateTime()));
+        System.out.println("6 - Horario de abertura diario | Atual => " + evento.getHorarioDeAberturaDiario().format(LidaComInputs.getFormatterHora()));
+        System.out.println("7 - Horario de fechamento diario | Atual => " + evento.getHorarioDeFechamentoDiario().format(LidaComInputs.getFormatterHora()));
         System.out.println("8 - Voltar");
 
         int number = LidaComInputs.tentarPegarInputInteiroAteDarCerto((n) -> {

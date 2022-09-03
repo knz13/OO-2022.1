@@ -134,6 +134,7 @@ public class Registro {
 							evento.setEstacionamento(Registro.pesquisarEstacionamento(dadosEvento[5]));
 							evento.setHorarioDeAberturaDiario(LocalTime.parse(dadosEvento[6],LidaComInputs.getFormatterHora()));
 							evento.setHorarioDeFechamentoDiario(LocalTime.parse(dadosEvento[7],LidaComInputs.getFormatterHora()));
+							Registro.AdicionarEvento(evento);
 							break;
 
 						case 3:
