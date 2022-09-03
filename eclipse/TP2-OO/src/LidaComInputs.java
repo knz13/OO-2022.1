@@ -22,6 +22,12 @@ interface FuncaoDeTesteHorario {
 interface FuncaoDeTesteDoInput {
     public Boolean operation(String strQualquer);
 }
+interface FuncaoDeTesteDoInputInteiro {
+    public Boolean operation(int intQualquer);
+}
+interface FuncaoDeTesteDoInputDouble {
+    public Boolean operation(double doubleQualquer);
+}
 
 
 
@@ -33,6 +39,8 @@ public class LidaComInputs {
     private static DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
     private static DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
+    
+
     public static String getExemploDeHorario() {
         return LocalTime.now().format(formatterHora);
     }
@@ -61,6 +69,12 @@ public class LidaComInputs {
 			try {
 				valor = lidarComInput(scanner);
 
+                if(valor.contains((","))){
+                    System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
+                    valor = null;
+                    continue;
+                }
+
                 if(!func.operation(valor)){
                     valor = null;
                 }
@@ -77,7 +91,7 @@ public class LidaComInputs {
         return tentarPegarInputAteDarCerto(scanner,(n) -> {return true;});
     }
 
-    public static int tentarPegarInputInteiroAteDarCerto(Scanner scanner,FuncaoDeTesteDoInput func){
+    public static int tentarPegarInputInteiroAteDarCerto(Scanner scanner,FuncaoDeTesteDoInputInteiro func){
         String valor = null;
         Integer object = null;
 
@@ -85,19 +99,26 @@ public class LidaComInputs {
 			try {
 				valor = lidarComInput(scanner);
 
-                if(!func.operation(valor)){
+                if(valor.contains((","))){
+                    System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
                     valor = null;
                     continue;
                 }
+
                 
                 object = Integer.parseInt(valor);
-
+                
                 if(object.intValue() < 0){
                     System.out.println("O valor inserido nao pode ser menor do que 0! Tente novamente.");
                     object = null;
                     valor = null;
                 }
                 
+                if(!func.operation(object.intValue())){
+                    valor = null;
+                    object = null;
+                    continue;
+                }
 			}
 			catch(DescricaoEmBrancoException err){
 				System.out.println(err.getMessage());
@@ -118,7 +139,7 @@ public class LidaComInputs {
         return tentarPegarInputInteiroAteDarCerto(scanner,(n) -> {return true;});
     }
 
-    public static double tentarPegarInputDoubleAteDarCerto(Scanner scanner,FuncaoDeTesteDoInput func){
+    public static double tentarPegarInputDoubleAteDarCerto(Scanner scanner,FuncaoDeTesteDoInputDouble func){
         String valor = null;
         Double object = null;
 
@@ -126,20 +147,25 @@ public class LidaComInputs {
 			try {
 				valor = lidarComInput(scanner);
 
-                if(!func.operation(valor)){
+                if(valor.contains((","))){
+                    System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
                     valor = null;
                     continue;
                 }
 
-                
                 object = Double.parseDouble(valor);
-
+                
                 if(object.intValue() < 0){
                     System.out.println("O valor inserido nao pode ser menor do que 0! Tente novamente.");
                     object = null;
                     valor = null;
                 }
                 
+                if(!func.operation(object.doubleValue())){
+                    valor = null;
+                    object = null;
+                    continue;
+                }
 			}
 			catch(DescricaoEmBrancoException err){
 				System.out.println(err.getMessage());
@@ -244,6 +270,20 @@ public class LidaComInputs {
     public static LocalDateTime tentarPegarInputDeDataEHora(Scanner scanner){
         return tentarPegarInputDeDataEHora(scanner,(n) -> {return true;});
     }
+
+    public static DateTimeFormatter getFormatterDateTime() {
+        return formatterDateTime;
+    }
+
+    public static DateTimeFormatter getFormatterHora() {
+        return formatterHora;
+    }
+
+
+    public static DateTimeFormatter getFormatterDate() {
+        return formatterDate;
+    }
+
 
     
 }

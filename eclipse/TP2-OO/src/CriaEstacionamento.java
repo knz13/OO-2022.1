@@ -58,14 +58,9 @@ public class CriaEstacionamento {
 		
 		System.out.println("Digite a porcentagem de retorno ao contratante entre 0 e 1:");
 		estacionamento.setRetornoContratante(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc,(input) -> {
-			try {
-				if(Double.parseDouble(input) > 1){
-					System.out.println("O valor de retorno ao contratante nao pode ser maior que 100%! Tente novamente.");
-					return false;
-				}
-			}
-			catch(NumberFormatException err) {
-				; // o erro ja vai ser tratado após a função
+			if(input > 1){
+				System.out.println("O valor de retorno ao contratante nao pode ser maior que 100%! Tente novamente.");
+				return false;
 			}
 			return true;
 		}));
