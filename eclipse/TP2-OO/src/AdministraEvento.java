@@ -81,7 +81,13 @@ public class AdministraEvento implements Administrador{
 
 		System.out.print("Digite o nome do evento a ser criado: ");
         
-        evento.setNomeDoEvento(LidaComInputs.tentarPegarInputAteDarCerto());
+        evento.setNomeDoEvento(LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+            if(input.equals("-1")){
+                System.out.println("Desculpe, o valor -1 esta reservado para uso interno. Por favor, tente novamente.");
+                return false;
+            }
+            return true;
+        }));
         
         System.out.println(Registro.listarEstacionamentos());
         

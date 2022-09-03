@@ -9,7 +9,13 @@ public class AdministraEstacionamento implements Administrador {
 		System.out.print("Digite o nome do estacionamento a ser criado: ");
 		
 
-		estacionamento.setNomeEstacionamento(LidaComInputs.tentarPegarInputAteDarCerto());
+		estacionamento.setNomeEstacionamento(LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+			if(input.equals("-1")){
+				System.out.println("Desculpe, o valor -1 esta reservado para uso interno. Por favor, tente novamente.");
+				return false;
+			}
+			return true;
+		}));
 		
 		// preciso agora chamar metodos para definir todos os outros atributos obrigatorios!
 		

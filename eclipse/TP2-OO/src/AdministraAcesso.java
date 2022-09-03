@@ -70,7 +70,13 @@ public class AdministraAcesso implements Administrador{
 
 		System.out.print("Digite a placa do carro: ");
 
-        acesso.setPlaca(LidaComInputs.tentarPegarInputAteDarCerto());
+        acesso.setPlaca(LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+            if(input.equals("-1")){
+                System.out.println("Desculpe, o valor -1 esta reservado para uso interno. Por favor escolha outra placa.");
+                return false;
+            }
+            return true;
+        }));
 
         System.out.println(Registro.listarEstacionamentos());
         
