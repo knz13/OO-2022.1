@@ -7,6 +7,9 @@ public class Acesso {
 	private LocalDateTime dataEHorarioDeEntrada;
 	private LocalDateTime dataEHorarioDeSaida;
 
+	public float calcularValor() {
+		return estacionamento.calcularValorAcesso(this); //TODO
+	}
 
 	public String getPlaca() {
 		return placa;
@@ -33,8 +36,7 @@ public class Acesso {
 		this.dataEHorarioDeSaida = dataEHorarioDeSaida;
 	}
 
-	//public double CalcularValor() lidar depois
-
+	
 	
 
 }

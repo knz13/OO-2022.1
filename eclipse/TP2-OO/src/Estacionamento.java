@@ -16,8 +16,12 @@ public class Estacionamento {
 	private LocalTime horarioFechamento;
 	
 	public Estacionamento() {
-
+		
 	}
+
+	public float calcularValorAcesso(Acesso acesso){
+		return 0; //TODO
+	};
 
 	public String getNomeEstacionamento() {
 		return nomeEstacionamento;

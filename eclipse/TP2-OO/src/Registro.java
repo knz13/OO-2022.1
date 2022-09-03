@@ -6,12 +6,16 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Registro {
 
 	private static BancoDeDados registros = new BancoDeDados();
-	
 
+	private static Scanner scannerGeral = new Scanner(System.in);
+
+
+	
 	public static BancoDeDados getBancoDeDados() {
 		return Registro.registros;
 	}
@@ -23,6 +27,12 @@ public class Registro {
 
 			for(Estacionamento estacionamento : getBancoDeDados().getEstacionamentos()){
 				file.append("1,");
+				if(estacionamento instanceof Estacionamento24h){
+					file.append("24h,");
+				}
+				else {
+					file.append("Normal,");
+				}
 				file.append(estacionamento.getNomeEstacionamento() + ",");
 				file.append(estacionamento.getCapacidadeEstacionamento() + ",");
 				file.append(estacionamento.getFracaoQuinzeMinutos() + ",");
@@ -36,18 +46,8 @@ public class Registro {
 				file.append(estacionamento.getHorarioFechamento().format(LidaComInputs.getFormatterHora()) + ",");
 				file.append("\n");
 			}
-
-			for(Acesso acesso : getBancoDeDados().getAcessos()){
-				file.append("2,");
-				file.append(acesso.getPlaca() + ",");
-				file.append( acesso.getDataEHorarioDeEntrada().format(LidaComInputs.getFormatterDateTime()) + ",");
-				file.append( acesso.getDataEHorarioDeSaida().format(LidaComInputs.getFormatterDateTime()) + ",");
-				file.append( acesso.getEstacionamento().getNomeEstacionamento() + ",");
-				file.append("\n");
-			}
-
 			for(Evento evento : getBancoDeDados().getEventos()){
-				file.append("3,");
+				file.append("2,");
 				file.append(evento.getNomeDoEvento() + ",");
 				file.append(evento.getDataEHorarioDeInicio().format(LidaComInputs.getFormatterDateTime()) + ",");
 				file.append(evento.getDataEHorarioDeFim().format(LidaComInputs.getFormatterDateTime()) + ",");
@@ -57,6 +57,29 @@ public class Registro {
 				file.append(evento.getHorarioDeFechamentoDiario() + ",");
 				file.append("\n");
 			}
+
+			for(Acesso acesso : getBancoDeDados().getAcessos()){
+				file.append("3,");
+				if(acesso instanceof AcessoEvento){
+					file.append("AcessoEvento,");
+				}
+				else if (acesso instanceof AcessoMensalista){
+					file.append("AcessoMensalista,");
+				}
+				else {
+					file.append("AcessoNormal,");
+				}
+				file.append(acesso.getPlaca() + ",");
+				file.append( acesso.getDataEHorarioDeEntrada().format(LidaComInputs.getFormatterDateTime()) + ",");
+				file.append( acesso.getDataEHorarioDeSaida().format(LidaComInputs.getFormatterDateTime()) + ",");
+				file.append( acesso.getEstacionamento().getNomeEstacionamento() + ",");
+				if(acesso instanceof AcessoEvento){
+					AcessoEvento acEvento = (AcessoEvento)acesso;
+					file.append(acEvento.getEventoAssociado().getNomeDoEvento() + ",");
+				}
+				file.append("\n");
+			}
+
 
 
 			file.close();
@@ -80,32 +103,27 @@ public class Registro {
 						case 1:
 							//estacionamento
 							String[] dados = line.split(",");
-							Estacionamento estacionamento = new Estacionamento();
-							estacionamento.setNomeEstacionamento(dados[1]);
-							estacionamento.setCapacidadeEstacionamento(Integer.parseInt(dados[2]));
-							estacionamento.setFracaoQuinzeMinutos(Double.parseDouble(dados[3]));
-							estacionamento.setValorHoraCheia(Double.parseDouble(dados[4]));
-							estacionamento.setDescontoHoraCheia(Double.parseDouble(dados[5]));
-							estacionamento.setDiariaDiurna(Double.parseDouble(dados[6]));
-							estacionamento.setDiariaNoturna(Double.parseDouble(dados[7]));
-							estacionamento.setValorMensalista(Double.parseDouble(dados[8]));
-							estacionamento.setRetornoContratante(Double.parseDouble(dados[9]));
-							estacionamento.setHorarioAbertura(LocalTime.parse(dados[10],LidaComInputs.getFormatterHora()));
-							estacionamento.setHorarioFechamento(LocalTime.parse(dados[11],LidaComInputs.getFormatterHora()));
+							Estacionamento estacionamento = null;
+							if(dados[1].equals("24h")){
+								estacionamento = new Estacionamento24h();
+							}
+							else {
+								estacionamento = new Estacionamento();
+							}
+							estacionamento.setNomeEstacionamento(dados[2]);
+							estacionamento.setCapacidadeEstacionamento(Integer.parseInt(dados[3]));
+							estacionamento.setFracaoQuinzeMinutos(Double.parseDouble(dados[4]));
+							estacionamento.setValorHoraCheia(Double.parseDouble(dados[5]));
+							estacionamento.setDescontoHoraCheia(Double.parseDouble(dados[6]));
+							estacionamento.setDiariaDiurna(Double.parseDouble(dados[7]));
+							estacionamento.setDiariaNoturna(Double.parseDouble(dados[8]));
+							estacionamento.setValorMensalista(Double.parseDouble(dados[9]));
+							estacionamento.setRetornoContratante(Double.parseDouble(dados[10]));
+							estacionamento.setHorarioAbertura(LocalTime.parse(dados[11],LidaComInputs.getFormatterHora()));
+							estacionamento.setHorarioFechamento(LocalTime.parse(dados[12],LidaComInputs.getFormatterHora()));
 							Registro.AdicionarEstacionamento(estacionamento);
 							break;
 						case 2:
-							//acesso
-							String[] dadosAcesso = line.split(",");
-							Acesso acesso = new Acesso();
-							acesso.setPlaca(dadosAcesso[1]);
-							acesso.setDataEHorarioDeEntrada(LocalDateTime.parse(dadosAcesso[2],LidaComInputs.getFormatterDateTime()));
-							acesso.setDataEHorarioDeSaida(LocalDateTime.parse(dadosAcesso[3],LidaComInputs.getFormatterDateTime()));
-							acesso.setEstacionamento(Registro.pesquisarEstacionamento(dadosAcesso[4]));
-							Registro.AdicionarAcesso(acesso);
-							break;
-
-						case 3:
 							//evento
 							String[] dadosEvento = line.split(",");
 							Evento evento = new Evento();
@@ -116,6 +134,30 @@ public class Registro {
 							evento.setEstacionamento(Registro.pesquisarEstacionamento(dadosEvento[5]));
 							evento.setHorarioDeAberturaDiario(LocalTime.parse(dadosEvento[6],LidaComInputs.getFormatterHora()));
 							evento.setHorarioDeFechamentoDiario(LocalTime.parse(dadosEvento[7],LidaComInputs.getFormatterHora()));
+							break;
+
+						case 3:
+							//acesso
+							String[] dadosAcesso = line.split(",");
+							Acesso acesso = null;
+							if(dadosAcesso[1].equals("AcessoNormal")){
+								acesso = new Acesso();
+							}
+							else if (dadosAcesso[1].equals("AcessoMensalista")){
+								acesso = new AcessoMensalista();
+							}
+							else if (dadosAcesso[1].equals("AcessoEvento")){
+								acesso = new AcessoEvento();
+							}
+							acesso.setPlaca(dadosAcesso[2]);
+							acesso.setDataEHorarioDeEntrada(LocalDateTime.parse(dadosAcesso[3],LidaComInputs.getFormatterDateTime()));
+							acesso.setDataEHorarioDeSaida(LocalDateTime.parse(dadosAcesso[4],LidaComInputs.getFormatterDateTime()));
+							acesso.setEstacionamento(Registro.pesquisarEstacionamento(dadosAcesso[5]));
+							if(dadosAcesso.length > 6){
+								AcessoEvento acEvento = (AcessoEvento)acesso;
+								acEvento.setEventoAssociado(Registro.pesquisarEvento(dadosAcesso[6]));
+							}
+							Registro.AdicionarAcesso(acesso);
 							break;
 
 
@@ -151,6 +193,14 @@ public class Registro {
 		}	
 		return valor;
 
+	}
+
+	public static String listarEventosSemIndex() {
+		String valor = "Lista de Eventos:\n";
+		for(Evento evento : registros.getEventos()){
+			valor += " - " + evento.getNomeDoEvento() + "\n";
+		}
+		return valor;
 	}
 
 	public static void AdicionarAcesso(Acesso acesso) {
@@ -203,7 +253,7 @@ public class Registro {
 			}
 		}
 		if(evento == null){
-			throw new ObjetoNaoEncontradoException("Evento com nome " + nomeDoEvento + " não encontrado!");
+			throw new ObjetoNaoEncontradoException("Evento com nome " + nomeDoEvento + " nao encontrado!");
 		}
 
 		return evento;
@@ -217,7 +267,7 @@ public class Registro {
 			}
 		}
 		if(estacionamento == null){
-			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + nomeDoEstacionamento + " não encontrado!");
+			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + nomeDoEstacionamento + " nao encontrado!");
 		}
 
 		return estacionamento;
@@ -231,9 +281,24 @@ public class Registro {
 			}
 		}
 		if(acesso == null){
-			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + placa + " não encontrado!");
+			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + placa + " nao encontrado!");
 		}
 
 		return acesso;
 	}
+
+
+    public static BancoDeDados getRegistros() {
+        return registros;
+    }
+
+
+    public static void setRegistros(BancoDeDados registros) {
+        Registro.registros = registros;
+    }
+
+
+    public static Scanner getScannerGeral() {
+        return scannerGeral;
+    }
 }

@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class AdministraEstacionamento implements Administrador {
 
@@ -6,27 +5,26 @@ public class AdministraEstacionamento implements Administrador {
 	public void MostrarMenuCriacao() {
 
 		System.out.println("------ CRIACAO DE NOVO ESTACIONAMENTO ------");
-		Scanner sc = new Scanner(System.in);
 		Estacionamento estacionamento = new Estacionamento();
 		System.out.print("Digite o nome do estacionamento a ser criado: ");
 		
 
-		estacionamento.setNomeEstacionamento(LidaComInputs.tentarPegarInputAteDarCerto(sc));
+		estacionamento.setNomeEstacionamento(LidaComInputs.tentarPegarInputAteDarCerto());
 		
 		// preciso agora chamar metodos para definir todos os outros atributos obrigatorios!
 		
 		System.out.print("Digite a capacidade total do seu estacionamento: ");
 
 		// metodo para definir a capacidade
-		estacionamento.setCapacidadeEstacionamento(LidaComInputs.tentarPegarInputInteiroAteDarCerto(sc));
+		estacionamento.setCapacidadeEstacionamento(LidaComInputs.tentarPegarInputInteiroAteDarCerto());
 		//System.out.println("Capacidade do estacionamento: " + estacionamento.capacidadeEstacionamento);
 
 		System.out.println("Digite o horário de abertura no formato: " + LidaComInputs.getExemploDeHorario());
 
-		estacionamento.setHorarioAbertura(LidaComInputs.tentarPegarInputDeHora(sc));
+		estacionamento.setHorarioAbertura(LidaComInputs.tentarPegarInputDeHora());
 
 		System.out.println("Digite o horário de fechamento do estacionamento no formato: " + LidaComInputs.getExemploDeHorario());
-		estacionamento.setHorarioFechamento(LidaComInputs.tentarPegarInputDeHora(sc,(horario) -> {
+		estacionamento.setHorarioFechamento(LidaComInputs.tentarPegarInputDeHora((horario) -> {
 			if(horario.isBefore(estacionamento.getHorarioAbertura())){
 				System.out.println("O horario de fechamento inserido e anterior ao horario de abertura! Por favor, tente novamente.");
 				return false;
@@ -36,28 +34,28 @@ public class AdministraEstacionamento implements Administrador {
 		
 		// metodos para definir valores cobrados
 		System.out.println("Digite o valor cobrado por fração de 15 minutos:");
-		estacionamento.setFracaoQuinzeMinutos(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc));
+		estacionamento.setFracaoQuinzeMinutos(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado por estadia de 15 minutos: R$" + this.fracaoQuinzeMinutos);
 		
 		System.out.println("Digite o valor de desconto de hora cheia:");
-		estacionamento.setDescontoHoraCheia(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc));
+		estacionamento.setDescontoHoraCheia(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Desconto aplicado a cada hora cheia: " + this.descontoHoraCheia);
 		//System.out.println("Valor cobrado pela hora cheia: R$" + this.valorHoraCheia);
 		
 		System.out.println("Digite o valor da diária diurna:");
-		estacionamento.setDiariaDiurna(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc));
+		estacionamento.setDiariaDiurna(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado pela di�ria diurna: R$" + this.diariaDiurna);
 		
 		System.out.println("Digite o valor da diária noturna:");
-		estacionamento.setDiariaNoturna(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc));
+		estacionamento.setDiariaNoturna(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado pela di�ria noturna: R$" + this.diariaNoturna);
 		
 		System.out.println("Digite o valor da mensalidade:");
-		estacionamento.setValorMensalista(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc));
+		estacionamento.setValorMensalista(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado para mensalistas: R$" + this.valorMensalista);
 		
 		System.out.println("Digite a porcentagem de retorno ao contratante entre 0 e 1:");
-		estacionamento.setRetornoContratante(LidaComInputs.tentarPegarInputDoubleAteDarCerto(sc,(input) -> {
+		estacionamento.setRetornoContratante(LidaComInputs.tentarPegarInputDoubleAteDarCerto((input) -> {
 			if(input > 1){
 				System.out.println("O valor de retorno ao contratante nao pode ser maior que 100%! Tente novamente.");
 				return false;
@@ -83,20 +81,47 @@ public class AdministraEstacionamento implements Administrador {
 
 	public void MostrarMenuDeObjeto(Estacionamento estacionamento){
 		
+		System.out.println("O que voce gostaria de fazer com esse estacionamento?\n");
 
+        System.out.println("1 - Atualizar");
+        System.out.println("2 - Remover");
+        System.out.println("3 - Voltar");
+
+        int numero = LidaComInputs.tentarPegarInputInteiroAteDarCerto((n) -> {
+            if(n > 3 || n < 1){
+                System.out.println("Por favor, escolha uma das opções.");
+                return false;
+            }
+            return true;
+        });
+
+        switch(numero){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                Menu.MostrarMenuPrincipal();
+                break;
+        }
 
 	}	
 
 	@Override
 	public void MostrarMenuPesquisa() {
-		Scanner sc = new Scanner(System.in);
 		System.out.println(Registro.listarEstacionamentosSemIndex());
 
 		
 		Estacionamento estacionamento = null;
 		while(true){
-			System.out.print("Digite o nome do estacionamento que voce deseja visualizar: ");
-			String nome = LidaComInputs.tentarPegarInputAteDarCerto(sc);
+			System.out.print("Digite o nome do estacionamento que voce deseja visualizar ou digite '-1' para voltar: ");
+			String nome = LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+				if(input.equals("-1")){
+					Menu.MostrarInterface(this, "Estacionamentos");
+					return false;
+				}
+				return true;
+			});
 
 			try {
 				estacionamento = Registro.pesquisarEstacionamento(nome);

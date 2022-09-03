@@ -55,19 +55,19 @@ public class LidaComInputs {
 
     public static String lidarComInput(Scanner scanner){
 		String stringRecebida = scanner.nextLine();
-		if(stringRecebida == ""){
+		if(stringRecebida.equals("")){
 			throw new DescricaoEmBrancoException("Por favor, digite um valor para o campo especificado.");
 		}
 		return stringRecebida;
 	}
 
     //funcao de teste do input pode ser usada para testes extras sobre cada input especifico, caso retorne falso, tentará pegar o input novamente!
-	public static String tentarPegarInputAteDarCerto(Scanner scanner,FuncaoDeTesteDoInput func){
+	public static String tentarPegarInputAteDarCerto(FuncaoDeTesteDoInput func){
 		String valor = null;
 
 		while(valor == null){
 			try {
-				valor = lidarComInput(scanner);
+				valor = lidarComInput(Registro.getScannerGeral());
 
                 if(valor.contains((","))){
                     System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
@@ -87,17 +87,17 @@ public class LidaComInputs {
         return valor;
 	}
     
-    public static String tentarPegarInputAteDarCerto(Scanner scanner){
-        return tentarPegarInputAteDarCerto(scanner,(n) -> {return true;});
+    public static String tentarPegarInputAteDarCerto(){
+        return tentarPegarInputAteDarCerto((n) -> {return true;});
     }
 
-    public static int tentarPegarInputInteiroAteDarCerto(Scanner scanner,FuncaoDeTesteDoInputInteiro func){
+    public static int tentarPegarInputInteiroAteDarCerto(FuncaoDeTesteDoInputInteiro func){
         String valor = null;
         Integer object = null;
 
 		while(valor == null){
 			try {
-				valor = lidarComInput(scanner);
+				valor = lidarComInput(Registro.getScannerGeral());
 
                 if(valor.contains((","))){
                     System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
@@ -136,17 +136,17 @@ public class LidaComInputs {
         return object.intValue();
     }
 
-    public static int tentarPegarInputInteiroAteDarCerto(Scanner scanner) {
-        return tentarPegarInputInteiroAteDarCerto(scanner,(n) -> {return true;});
+    public static int tentarPegarInputInteiroAteDarCerto() {
+        return tentarPegarInputInteiroAteDarCerto((n) -> {return true;});
     }
     
-    public static double tentarPegarInputDoubleAteDarCerto(Scanner scanner,FuncaoDeTesteDoInputDouble func){
+    public static double tentarPegarInputDoubleAteDarCerto(FuncaoDeTesteDoInputDouble func){
         String valor = null;
         Double object = null;
         
 		while(valor == null){
             try {
-                valor = lidarComInput(scanner);
+                valor = lidarComInput(Registro.getScannerGeral());
                 
                 if(valor.contains((","))){
                     System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
@@ -184,17 +184,17 @@ public class LidaComInputs {
         return object.doubleValue();
     }
 
-    public static double tentarPegarInputDoubleAteDarCerto(Scanner scanner){
-        return tentarPegarInputDoubleAteDarCerto(scanner,(n) -> {return true;});
+    public static double tentarPegarInputDoubleAteDarCerto(){
+        return tentarPegarInputDoubleAteDarCerto((n) -> {return true;});
     }
   
 
-    public static LocalTime tentarPegarInputDeHora(Scanner scanner,FuncaoDeTesteHorario func){
+    public static LocalTime tentarPegarInputDeHora(FuncaoDeTesteHorario func){
         LocalTime time = null;
         String valor = "";
         while(time == null){
             try{
-                valor = lidarComInput(scanner);
+                valor = lidarComInput(Registro.getScannerGeral());
 
                 time = LocalTime.parse(valor, formatterHora);
 
@@ -213,16 +213,16 @@ public class LidaComInputs {
         return time;
     }
 
-    public static LocalTime tentarPegarInputDeHora(Scanner scanner){
-        return tentarPegarInputDeHora(scanner,(n) -> {return true;});
+    public static LocalTime tentarPegarInputDeHora(){
+        return tentarPegarInputDeHora((n) -> {return true;});
     }
 
-    public static LocalDate tentarPegarInputDeData(Scanner scanner,FuncaoDeTesteData func){
+    public static LocalDate tentarPegarInputDeData(FuncaoDeTesteData func){
         LocalDate date = null;
         String valor = "";
         while(date == null){
             try{
-                valor = lidarComInput(scanner);
+                valor = lidarComInput(Registro.getScannerGeral());
 
                 date = LocalDate.parse(valor,formatterDate);
 
@@ -241,16 +241,16 @@ public class LidaComInputs {
         return date;
     }
 
-    public static LocalDate tentarPegarInputDeData(Scanner scanner) {
-        return tentarPegarInputDeData(scanner,(n) -> {return true;});
+    public static LocalDate tentarPegarInputDeData() {
+        return tentarPegarInputDeData((n) -> {return true;});
     }
 
-    public static LocalDateTime tentarPegarInputDeDataEHora(Scanner scanner,FuncaoDeTesteDataEHorario func){
+    public static LocalDateTime tentarPegarInputDeDataEHora(FuncaoDeTesteDataEHorario func){
         LocalDateTime date = null;
         String valor = "";
         while(date == null){
             try{
-                valor = lidarComInput(scanner);
+                valor = lidarComInput(Registro.getScannerGeral());
 
                 date = LocalDateTime.parse(valor,formatterDateTime);
 
@@ -269,8 +269,8 @@ public class LidaComInputs {
         return date;
     }
 
-    public static LocalDateTime tentarPegarInputDeDataEHora(Scanner scanner){
-        return tentarPegarInputDeDataEHora(scanner,(n) -> {return true;});
+    public static LocalDateTime tentarPegarInputDeDataEHora(){
+        return tentarPegarInputDeDataEHora((n) -> {return true;});
     }
 
     public static DateTimeFormatter getFormatterDateTime() {
