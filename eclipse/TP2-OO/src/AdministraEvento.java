@@ -1,4 +1,6 @@
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class AdministraEvento implements Administrador{
 
@@ -49,6 +51,7 @@ public class AdministraEvento implements Administrador{
 
         switch(numero){
             case 1:
+                MostrarMenuAtualizacao(evento);
                 break;
             case 2:
                 break;
@@ -59,7 +62,183 @@ public class AdministraEvento implements Administrador{
 
     }
 
-    
+    public void MostrarMenuAtualizacao(Evento evento){
+
+        System.out.println("O que voce gostaria de atualizar no evento '" + evento.getNomeDoEvento() + "'?\n");
+
+        System.out.println("1 - Nome");
+        System.out.println("2 - Valor");
+        System.out.println("3 - Estacionamento associado");
+        System.out.println("4 - Data de inicio");
+        System.out.println("5 - Data de termino");
+        System.out.println("6 - Horario de abertura diario");
+        System.out.println("7 - Horario de fechamento diario");
+        System.out.println("8 - Voltar");
+
+        int number = LidaComInputs.tentarPegarInputInteiroAteDarCerto((n) -> {
+            if(n > 8 || n < 1){
+                System.out.println("Por favor, escolha uma das opcoes");
+                return false;
+            }
+            return true;
+        });
+
+        switch(number){
+            case 1:
+                System.out.println("Digite o novo nome do evento ou '-1' para voltar.");
+                String nome = LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    return true;
+                });
+                evento.setNomeDoEvento(nome);
+                break;
+            case 2:
+                System.out.println("Digite o novo valor do evento ou '-1' para voltar.");
+                LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    try {
+                        if(Double.parseDouble(input) < 0){
+                            System.out.println("O valor nao pode ser negativo! Tente novamente.");
+                            return false;
+                        }
+                        evento.setValorDoEvento(Double.parseDouble(input));
+                        return true;
+                    }
+                    catch(NumberFormatException err){
+                        System.out.println("o valor " + input + " nao e um numero valido! Tente novamente.");
+                        return false;
+                    }
+                });
+                break;
+            case 3:
+                System.out.println("Digite o numero associado ao novo estacionamento ou '-1' para voltar.\n");
+                System.out.println(Registro.listarEstacionamentos());
+
+                LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    try {
+                        int numero = Integer.parseInt(input);
+                        if(numero < 0 || numero >= Registro.getBancoDeDados().getEstacionamentos().size()){
+                            System.out.println("Por favor, escolha um dos estacionamentos acima.");
+                            return false;
+                        }
+                        evento.setEstacionamento(Registro.getBancoDeDados().getEstacionamentos().get(numero));
+                    }
+                    catch(NumberFormatException err){
+                        System.out.println("o numero " + input + " nao e um numero valido! Tente novamente.");
+                        return false;
+                    }
+                    return true;
+                });
+
+                
+                break;
+            case 4:
+                System.out.println("Digite a nova data de inicio no formato" + LidaComInputs.getExemploDeDataEHora() + " ou '-1' para voltar.\n");
+
+                LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    try {
+                        LocalDateTime date = LocalDateTime.parse(input,LidaComInputs.getFormatterDateTime());
+
+                        if(date.isAfter(evento.getDataEHorarioDeFim())){
+                            System.out.println("A data e hora informados estao antes da data e hora informados para termino do evento. Tente novamente.");
+                            return false;
+                        }
+                        evento.setDataEHorarioDeInicio(date);
+                        return true;
+
+                    }
+                    catch(DateTimeParseException err){
+                        System.out.println("A data e hora informados nao sao validos. Tente novamente.");
+                        return false;
+                    }
+                });
+                break;
+            case 5:
+                System.out.println("Digite a nova data de termino no formato" + LidaComInputs.getExemploDeDataEHora() + " ou '-1' para voltar.\n");
+
+                LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    try {
+                        LocalDateTime date = LocalDateTime.parse(input,LidaComInputs.getFormatterDateTime());
+
+                        if(date.isBefore(evento.getDataEHorarioDeInicio())){
+                            System.out.println("A data e hora informados estao depois da data e hora informados para o inicio do evento. Tente novamente.");
+                            return false;
+                        }
+                        evento.setDataEHorarioDeFim(date);
+                        return true;
+
+                    }
+                    catch(DateTimeParseException err){
+                        System.out.println("A data e hora informados nao sao validos. Tente novamente.");
+                        return false;
+                    }
+                });
+                break;
+            case 6:
+                System.out.println("Digite o novo horario de abertura diario no formato" + LidaComInputs.getExemploDeHorario() + " ou '-1' para voltar.\n");
+                LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    try {
+                        LocalTime time = LocalTime.parse(input,LidaComInputs.getFormatterHora());
+                        evento.setHorarioDeAberturaDiario(time);
+                        return true;
+
+                    }
+                    catch(DateTimeParseException err){
+                        System.out.println("A hora informada nao e valida. Tente novamente.");
+                        return false;
+                    }
+                });
+                break;
+            case 7:
+                System.out.println("Digite o novo horario de fechamento diario no formato" + LidaComInputs.getExemploDeHorario() + " ou '-1' para voltar.\n");
+                LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
+                    if(input.equals("-1")){
+                        MostrarMenuAtualizacao(evento);
+                        return false;
+                    }
+                    try {
+                        LocalTime time = LocalTime.parse(input,LidaComInputs.getFormatterHora());
+                        evento.setHorarioDeFechamentoDiario(time);
+                        return true;
+
+                    }
+                    catch(DateTimeParseException err){
+                        System.out.println("A hora informada nao e valida. Tente novamente.");
+                        return false;
+                    }
+                });
+                break;
+            case 8:
+                MostrarMenuDeObjeto(evento);
+                break;
+        }
+
+
+
+    }   
+
     @Override
     public int GetNumeroDeObjetos() {
         // TODO Auto-generated method stub
@@ -104,20 +283,13 @@ public class AdministraEvento implements Administrador{
 
         evento.setEstacionamento(Registro.getBancoDeDados().getEstacionamentos().get(index));
 
-		System.out.print("Digite a hora de abertura do evento durante o dia " + LidaComInputs.getExemploDeHorario() + ": ");
+		System.out.print("Digite a hora de abertura do evento durante o dia no formato " + LidaComInputs.getExemploDeHorario() + ": ");
         
         evento.setHorarioDeAberturaDiario(LidaComInputs.tentarPegarInputDeHora());
         
-		System.out.print("Digite a hora de fechamento do evento durante o dia " + LidaComInputs.getExemploDeHorario() + ": ");
+		System.out.print("Digite a hora de fechamento do evento durante o dia no formato " + LidaComInputs.getExemploDeHorario() + ": ");
         
-        evento.setHorarioDeAberturaDiario(LidaComInputs.tentarPegarInputDeHora((hora) -> {
-            if(hora.isBefore(evento.getHorarioDeAberturaDiario())){
-                System.out.println("o horario de abertura do evento nao pode ser depois do horario de fechamento! Por favor, tente novamente.");
-                return false;
-            }
-            
-            return true;
-        }));
+        evento.setHorarioDeFechamentoDiario(LidaComInputs.tentarPegarInputDeHora());
         
 		System.out.print("Digite a data e hora de inicio do evento no formato " + LidaComInputs.getExemploDeDataEHora() + ": ");
         

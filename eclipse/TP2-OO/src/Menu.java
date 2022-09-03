@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Menu {
+
+    
+
     public static void MostrarMenuPrincipal() {
         System.out.println("Ola, bem vindo ao programa de administracao de estacionamentos!\n");
         System.out.println("Digite um dos numeros abaixo para navegar pelo programa!\n");
