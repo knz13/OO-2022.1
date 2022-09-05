@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public class AdministraEstacionamento implements Administrador {
 
@@ -39,7 +40,7 @@ public class AdministraEstacionamento implements Administrador {
 		}));
 		
 		// metodos para definir valores cobrados
-		System.out.println("Digite o valor cobrado por fração de 15 minutos:");
+		System.out.println("Digite o valor cobrado por fracao de 15 minutos:");
 		estacionamento.setFracaoQuinzeMinutos(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado por estadia de 15 minutos: R$" + this.fracaoQuinzeMinutos);
 		
@@ -105,6 +106,43 @@ public class AdministraEstacionamento implements Administrador {
             case 1:
                 break;
             case 2:
+
+				System.out.println("Tem certeza que deseja remover o estacionamento " + estacionamento.getNomeEstacionamento() + "? Digite 1 para deletar e 0 para cancelar.\nAviso: todos os eventos e acessos associados serao removidos.");
+				
+				int outroNumero = LidaComInputs.tentarPegarInputInteiroAteDarCerto((n) -> {
+					if(n > 1 || n < 0){
+						System.out.println("Por favor, escolha uma das opções.");
+						return false;
+					}
+					return true;
+				});
+
+				if(outroNumero == 0){
+					MostrarMenuDeObjeto(estacionamento);
+				}
+
+
+				Iterator<Evento> it = Registro.getBancoDeDados().getEventos().iterator();
+
+				while(it.hasNext()){
+					Evento ev = it.next();
+
+					if(ev.getEstacionamento() == estacionamento){
+						it.remove();
+					}
+				}
+
+				Iterator<Acesso> acessoIt = Registro.getBancoDeDados().getAcessos().iterator();
+
+				while(acessoIt.hasNext()){
+					Acesso ac = acessoIt.next();
+
+					if(ac.getEstacionamento() == estacionamento){
+						acessoIt.remove();
+					}
+				}
+				
+
 				Registro.removerEstacionamento(estacionamento.getNomeEstacionamento());
 				System.out.println("Estacionamento removido com sucesso!");
 				Menu.MostrarInterface(this, "Estacionamentos");

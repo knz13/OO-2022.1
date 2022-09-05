@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -260,6 +261,19 @@ public class Registro {
 		return evento;
 	}
 
+	public static ArrayList<Evento> getEventosRolando(LocalDateTime data) {
+		ArrayList<Evento> eventosRolando = new ArrayList<>();
+		Registro.getBancoDeDados().getEventos().forEach((evento) -> {
+            if(evento.getDataEHorarioDeInicio().isBefore(data) && evento.getDataEHorarioDeFim().isAfter(data)){
+                if(evento.getHorarioDeAberturaDiario().isBefore(data.toLocalTime()) && evento.getHorarioDeFechamentoDiario().isAfter(data.toLocalTime())){
+                    //sabemos que entrou durante as datas do evento e esta no periodo do evento!
+                    eventosRolando.add(evento);
+                }
+            }
+        });
+		return eventosRolando;
+	};
+
 	public static Estacionamento pesquisarEstacionamento(String nomeDoEstacionamento) {
 		Estacionamento estacionamento = null;
 		for(Estacionamento est : registros.getEstacionamentos()){
@@ -282,7 +296,7 @@ public class Registro {
 			}
 		}
 		if(acesso == null){
-			throw new ObjetoNaoEncontradoException("Estacionamento com nome " + placa + " nao encontrado!");
+			throw new ObjetoNaoEncontradoException("Acesso com placa " + placa + " nao encontrado!");
 		}
 
 		return acesso;

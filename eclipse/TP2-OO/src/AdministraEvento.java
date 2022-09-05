@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Iterator;
+
 
 public class AdministraEvento implements Administrador{
 
@@ -54,6 +56,34 @@ public class AdministraEvento implements Administrador{
                 MostrarMenuAtualizacao(evento);
                 break;
             case 2:
+                System.out.println("Tem certeza que deseja remover o evento " + evento.getNomeDoEvento() + "? Digite 1 para deletar e 0 para cancelar.\nAviso: todos os acessos associados serao removidos.");
+                    
+                int outroNumero = LidaComInputs.tentarPegarInputInteiroAteDarCerto((n) -> {
+                    if(n > 1 || n < 0){
+                        System.out.println("Por favor, escolha uma das opções.");
+                        return false;
+                    }
+                    return true;
+                });
+
+                if(outroNumero == 0){
+                    MostrarMenuDeObjeto(evento);
+                }
+
+                Iterator<Acesso> it = Registro.getBancoDeDados().getAcessos().iterator();
+
+                while(it.hasNext()){
+                    Acesso ac = it.next();
+
+                    if(ac instanceof AcessoEvento){
+                        AcessoEvento acEv = (AcessoEvento)ac;
+                        
+                        if(acEv.getEventoAssociado() == evento){
+                            it.remove();
+                        }
+                    }
+                }
+
                 Registro.removerEvento(evento.getNomeDoEvento());
                 System.out.println("Evento removido com sucesso!");
                 Menu.MostrarInterface(this, "Eventos");

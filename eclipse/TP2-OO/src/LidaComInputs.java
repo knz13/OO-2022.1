@@ -29,6 +29,10 @@ interface FuncaoDeTesteDoInputDouble {
     public Boolean operation(double doubleQualquer);
 }
 
+interface FuncaoGenericaSemRetornoNemInput {
+    public void operation();
+}
+
 
 
 

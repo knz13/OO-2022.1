@@ -7,6 +7,13 @@ public class Acesso {
 	private LocalDateTime dataEHorarioDeEntrada;
 	private LocalDateTime dataEHorarioDeSaida;
 
+	public void CopiarPara(Acesso ac) {
+		ac.setDataEHorarioDeEntrada(dataEHorarioDeEntrada);
+		ac.setDataEHorarioDeSaida(dataEHorarioDeSaida);
+		ac.setEstacionamento(estacionamento);
+		ac.setPlaca(placa);
+	}
+
 	public float calcularValor() {
 		return estacionamento.calcularValorAcesso(this); //TODO
 	}
