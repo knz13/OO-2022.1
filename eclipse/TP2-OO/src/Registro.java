@@ -14,8 +14,7 @@ public class Registro {
 	private static BancoDeDados registros = new BancoDeDados();
 
 	private static Scanner scannerGeral = new Scanner(System.in);
-
-
+	
 	
 	public static BancoDeDados getBancoDeDados() {
 		return Registro.registros;
