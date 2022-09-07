@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Registro {
@@ -304,17 +303,6 @@ public class Registro {
 
 		return acesso;
 	}
-
-
-    public static BancoDeDados getRegistros() {
-        return registros;
-    }
-
-
-    public static void setRegistros(BancoDeDados registros) {
-        Registro.registros = registros;
-    }
-
 
     public static Scanner getScannerGeral() {
         return scannerGeral;

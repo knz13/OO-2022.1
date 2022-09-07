@@ -73,8 +73,8 @@ public class LidaComInputs {
 			try {
 				valor = lidarComInput(Registro.getScannerGeral());
 
-                if(valor.contains((","))){
-                    System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
+                if(valor.contains(("-1"))){
+                    System.out.println("O valor -1 esta reservado para uso interno, por favor escolha outro.");
                     valor = null;
                     continue;
                 }
@@ -103,8 +103,8 @@ public class LidaComInputs {
 			try {
 				valor = lidarComInput(Registro.getScannerGeral());
 
-                if(valor.contains((","))){
-                    System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
+                if(valor.contains(("-1"))){
+                    System.out.println("O valor -1 esta reservado para uso interno, por favor escolha outro.");
                     valor = null;
                     continue;
                 }
@@ -112,8 +112,8 @@ public class LidaComInputs {
                 
                 object = Integer.parseInt(valor);
                 
-                if(object.intValue() < 0){
-                    System.out.println("O valor inserido nao pode ser menor do que 0! Tente novamente.");
+                if(object.doubleValue() <= 0){
+                    System.out.println("O valor inserido nao pode ser menor ou igual a 0! Tente novamente.");
                     object = null;
                     valor = null;
                     continue;
@@ -152,16 +152,16 @@ public class LidaComInputs {
             try {
                 valor = lidarComInput(Registro.getScannerGeral());
                 
-                if(valor.contains((","))){
-                    System.out.println("O input nao pode conter virgulas! Por favor, tente novamente.");
+                if(valor.contains(("-1"))){
+                    System.out.println("O valor -1 esta reservado para uso interno, por favor escolha outro.");
                     valor = null;
                     continue;
                 }
                 
                 object = Double.parseDouble(valor);
                 
-                if(object.intValue() < 0){
-                    System.out.println("O valor inserido nao pode ser menor do que 0! Tente novamente.");
+                if(object.doubleValue() <= 0){
+                    System.out.println("O valor inserido nao pode ser menor ou igual 0! Tente novamente.");
                     object = null;
                     valor = null;
                     continue;
@@ -210,7 +210,7 @@ public class LidaComInputs {
 				System.out.println(err.getMessage());
 			}
             catch(DateTimeParseException err){
-                System.out.println("valor de horário " + valor + " é inválido! Por favor, tente novamente.");
+                System.out.println("valor de horario " + valor + " é inválido! Por favor, tente novamente.");
             }
         }
 
@@ -238,7 +238,7 @@ public class LidaComInputs {
 				System.out.println(err.getMessage());
 			}
             catch(DateTimeParseException err){
-                System.out.println("valor de data " + valor + " é inválido! Por favor, tente novamente.");
+                System.out.println("valor de data " + valor + " é invalido! Por favor, tente novamente.");
             }
         }
 
@@ -266,7 +266,7 @@ public class LidaComInputs {
 				System.out.println(err.getMessage());
 			}
             catch(DateTimeParseException err){
-                System.out.println("valor de data e hora " + valor + " é inválido! Por favor, tente novamente.");
+                System.out.println("valor de data e hora " + valor + " é invalido! Por favor, tente novamente.");
             }
         }
 

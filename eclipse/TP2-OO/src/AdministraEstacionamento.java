@@ -12,13 +12,7 @@ public class AdministraEstacionamento implements Administrador {
 		System.out.print("Digite o nome do estacionamento a ser criado: ");
 		
 
-		estacionamento.setNomeEstacionamento(LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
-			if(input.equals("-1")){
-				System.out.println("Desculpe, o valor -1 esta reservado para uso interno. Por favor, tente novamente.");
-				return false;
-			}
-			return true;
-		}));
+		estacionamento.setNomeEstacionamento(LidaComInputs.tentarPegarInputAteDarCerto());
 		
 		// preciso agora chamar metodos para definir todos os outros atributos obrigatorios!
 		
@@ -46,14 +40,14 @@ public class AdministraEstacionamento implements Administrador {
 		estacionamento.setFracaoQuinzeMinutos(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado por estadia de 15 minutos: R$" + this.fracaoQuinzeMinutos);
 		
-		System.out.println("Digite o valor,em porcentagem (0 a 1), do desconto a cada hora cheia:");
+		System.out.println("Digite o valor,em porcentagem (0 a 100), do desconto a cada hora cheia:");
 		estacionamento.setDescontoHoraCheia(LidaComInputs.tentarPegarInputDoubleAteDarCerto((n) -> {
-			if(n > 1){
-				System.out.println("Por favor, digite um numero entre 0 e 1.");
+			if(n > 100){
+				System.out.println("Por favor, digite um numero entre 0 e 100.");
 				return false;
 			}
 			return true;
-		}));
+		})/100.0);
 		//System.out.println("Desconto aplicado a cada hora cheia: " + this.descontoHoraCheia);
 		//System.out.println("Valor cobrado pela hora cheia: R$" + this.valorHoraCheia);
 		
@@ -69,16 +63,15 @@ public class AdministraEstacionamento implements Administrador {
 		estacionamento.setValorMensalista(LidaComInputs.tentarPegarInputDoubleAteDarCerto());
 		//System.out.println("Valor cobrado para mensalistas: R$" + this.valorMensalista);
 		
-		System.out.println("Digite a porcentagem de retorno ao contratante entre 0 e 1:");
+		System.out.println("Digite a porcentagem de retorno ao contratante entre 0 e 100:");
 		estacionamento.setRetornoContratante(LidaComInputs.tentarPegarInputDoubleAteDarCerto((input) -> {
-			if(input > 1){
+			if(input > 100){
 				System.out.println("O valor de retorno ao contratante nao pode ser maior que 100%! Tente novamente.");
 				return false;
 			}
 			return true;
-		}));
-		//System.out.println("Porcentagem do valor retornado ao contratante: " + this.retornoContratante);
-
+		})/100.0);
+		
   		//implementar forma de usuário confirmar se quer realmente criar o estacionamento
 		Registro.AdicionarEstacionamento(estacionamento);
 		System.out.println("ESTACIONAMENTO CRIADO COM SUCESSO!");
@@ -222,7 +215,7 @@ public class AdministraEstacionamento implements Administrador {
 				});
 				break;
 			case 5:
-				System.out.println("Digite o novo valor para o desconto de hora cheia, em porcentagem (0 a 1), ou -1 para voltar");
+				System.out.println("Digite o novo valor para o desconto de hora cheia, em porcentagem (0 a 100), ou -1 para voltar");
 				LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
 					if(input.equals("-1")){
 						MostrarMenuAtualizacao(estacionamento);
@@ -232,12 +225,12 @@ public class AdministraEstacionamento implements Administrador {
 					try {
 						double fracao = Double.parseDouble(input);
 
-						if(fracao > 1){
-							System.out.println("O numero escolhido é maior do que 1, por favor tente novamente.");
+						if(fracao > 100){
+							System.out.println("O numero escolhido é maior do que 100, por favor tente novamente.");
 							return false;
 						}
 
-						estacionamento.setDescontoHoraCheia(fracao);
+						estacionamento.setDescontoHoraCheia(fracao/100);
 
 						MostrarMenuAtualizacao(estacionamento);
 					}catch (NumberFormatException err){
@@ -311,7 +304,7 @@ public class AdministraEstacionamento implements Administrador {
 				});
 				break;
 			case 9:	
-				System.out.println("Digite a nova porcentagem de retorno ao contratante ou -1 para voltar");
+				System.out.println("Digite a nova porcentagem de retorno ao contratante (0 a 100) ou -1 para voltar");
 				LidaComInputs.tentarPegarInputAteDarCerto((input) -> {
 					if(input.equals("-1")){
 						MostrarMenuAtualizacao(estacionamento);
@@ -321,12 +314,12 @@ public class AdministraEstacionamento implements Administrador {
 					try {
 						double fracao = Double.parseDouble(input);
 
-						if(fracao > 1){
+						if(fracao > 100){
 							System.out.println("O valor da porcentagem de retorno nao pode ser maior que 100%! Por favor, tente novamente.");
 							return false;
 						}
 
-						estacionamento.setRetornoContratante(fracao);
+						estacionamento.setRetornoContratante(fracao/100);
 
 						MostrarMenuAtualizacao(estacionamento);
 					}catch (NumberFormatException err){
