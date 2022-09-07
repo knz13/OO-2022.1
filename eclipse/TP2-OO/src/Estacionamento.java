@@ -6,7 +6,6 @@ public class Estacionamento {
 	private String nomeEstacionamento;
 	private double fracaoQuinzeMinutos;
 	private double descontoHoraCheia;
-	private double valorHoraCheia;
 	private double diariaDiurna; // sempre que o tempo de estadia do veiculo durar mais de 9 horas!
 	private double diariaNoturna; // valor percentual aplicado sobre o valor da diaria diurna
 	private double valorMensalista;
@@ -17,6 +16,19 @@ public class Estacionamento {
 	
 	public Estacionamento() {
 		
+	}
+
+	public void CopiarPara(Estacionamento est){
+		est.setCapacidadeEstacionamento(capacidadeEstacionamento);
+		est.setDescontoHoraCheia(descontoHoraCheia);
+		est.setDiariaDiurna(diariaDiurna);
+		est.setDiariaNoturna(diariaNoturna);
+		est.setFracaoQuinzeMinutos(fracaoQuinzeMinutos);
+		est.setHorarioAbertura(horarioAbertura);
+		est.setHorarioFechamento(horarioFechamento);
+		est.setNomeEstacionamento(nomeEstacionamento);
+		est.setRetornoContratante(retornoContratante);
+		est.setValorMensalista(valorMensalista);
 	}
 
 	public float calcularValorAcesso(Acesso acesso){
@@ -90,13 +102,6 @@ public class Estacionamento {
 		this.capacidadeEstacionamento = capacidade;
 	}
 
-	public double getValorHoraCheia() {
-		return valorHoraCheia;
-	}
-
-	public void setValorHoraCheia(double valorHoraCheia) {
-		this.valorHoraCheia = valorHoraCheia;
-	}
 
     public LocalTime getHorarioAbertura() {
         return horarioAbertura;

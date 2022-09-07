@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,7 +38,6 @@ public class Registro {
 				file.append(estacionamento.getNomeEstacionamento() + ",");
 				file.append(estacionamento.getCapacidadeEstacionamento() + ",");
 				file.append(estacionamento.getFracaoQuinzeMinutos() + ",");
-				file.append(estacionamento.getValorHoraCheia() + ",");
 				file.append(estacionamento.getDescontoHoraCheia() + ",");
 				file.append(estacionamento.getDiariaDiurna() + ",");
 				file.append(estacionamento.getDiariaNoturna() + ",");
@@ -95,6 +95,10 @@ public class Registro {
 
 	public static Boolean LoadFromFile(String path) {
 
+		if(!new File(path).exists() || new File(path).isDirectory()){
+			return false;
+		}
+
 		try {
 			List<String> lines = Files.readAllLines(Path.of(path));
 
@@ -114,14 +118,13 @@ public class Registro {
 							estacionamento.setNomeEstacionamento(dados[2]);
 							estacionamento.setCapacidadeEstacionamento(Integer.parseInt(dados[3]));
 							estacionamento.setFracaoQuinzeMinutos(Double.parseDouble(dados[4]));
-							estacionamento.setValorHoraCheia(Double.parseDouble(dados[5]));
-							estacionamento.setDescontoHoraCheia(Double.parseDouble(dados[6]));
-							estacionamento.setDiariaDiurna(Double.parseDouble(dados[7]));
-							estacionamento.setDiariaNoturna(Double.parseDouble(dados[8]));
-							estacionamento.setValorMensalista(Double.parseDouble(dados[9]));
-							estacionamento.setRetornoContratante(Double.parseDouble(dados[10]));
-							estacionamento.setHorarioAbertura(LocalTime.parse(dados[11],LidaComInputs.getFormatterHora()));
-							estacionamento.setHorarioFechamento(LocalTime.parse(dados[12],LidaComInputs.getFormatterHora()));
+							estacionamento.setDescontoHoraCheia(Double.parseDouble(dados[5]));
+							estacionamento.setDiariaDiurna(Double.parseDouble(dados[6]));
+							estacionamento.setDiariaNoturna(Double.parseDouble(dados[7]));
+							estacionamento.setValorMensalista(Double.parseDouble(dados[8]));
+							estacionamento.setRetornoContratante(Double.parseDouble(dados[9]));
+							estacionamento.setHorarioAbertura(LocalTime.parse(dados[10],LidaComInputs.getFormatterHora()));
+							estacionamento.setHorarioFechamento(LocalTime.parse(dados[11],LidaComInputs.getFormatterHora()));
 							Registro.AdicionarEstacionamento(estacionamento);
 							break;
 						case 2:
